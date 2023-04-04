@@ -42,9 +42,19 @@ onMounted(() => {
 <style lang="less" scoped>
 * {
   box-sizing: border-box;
+  overflow: hidden;
+  border: none;
+}
+
+body {
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
 }
 
 #app {
+  width: 100vw;
+  height: 100vh;
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -62,6 +72,7 @@ onMounted(() => {
     align-items: center;
     background-color: #00a3e8;
     color: #0b7bf3;
+    overflow: hidden;
 
     .container {
       margin-top: 42px;

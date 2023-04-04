@@ -352,7 +352,7 @@
   "resolved" "https://registry.npmjs.org/tslib/-/tslib-2.5.0.tgz"
   "version" "2.5.0"
 
-"vite@^2.2.3", "vite@^2.5.10":
+"vite@^2.5.10", "vite@^2.9.15":
   "integrity" "sha512-fzMt2jK4vQ3yK56te3Kqpkaeq9DkcZfBbzHwYpobasvgYmP2SoAr6Aic05CsB4CzCZbsDv4sujX3pkEGhLabVQ=="
   "resolved" "https://registry.npmjs.org/vite/-/vite-2.9.15.tgz"
   "version" "2.9.15"
