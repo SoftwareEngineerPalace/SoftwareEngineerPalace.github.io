@@ -1,7 +1,7 @@
 <template>
   <div class="base">
     <div class="container">
-      <span class="title">访客通行</span>
+      <span class="title">访客通行 1</span>
       <div class="pic-container">
         <img src="/assets/code1.png" />
       </div>
