@@ -94,7 +94,7 @@ body {
       .title {
         margin-top: 35px;
         font-size: 19px;
-        font-weight: 500;
+        font-weight: 600;
       }
 
       .pic-container {
@@ -117,25 +117,25 @@ body {
 
       .notice {
         margin-top: 5px;
-        font-weight:500;
+        font-weight: 600;
       }
 
       .counterDown {
         color: #9899fe;
         margin-top: 20px;
         font-size: 32px;
-        font-weight: 500;
+        font-weight: 600;
       }
 
       .username {
         font-size: 21px;
         margin-top: 20px;
-        font-weight:500;
+        font-weight: 600;
       }
 
       .time-notice {
         margin-top: 15px;
-        font-weight: 500;
+        font-weight: 600;
         font-size: 18px;
         padding-left: 30px;
         padding-right: 30px;
