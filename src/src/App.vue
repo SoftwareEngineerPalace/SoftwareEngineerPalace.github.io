@@ -26,7 +26,7 @@ onMounted(() => {
   const year = date.getFullYear();
   const month = (date.getMonth() + 1).toString().padStart(2, "0");
   const day = date.getDate().toString().padStart(2, "0");
-  timeNotice.value = `有效时间: ${year}-${month}-${day} 08:53:00至 ${year}-${month}-${day} 22:10:00`;
+  timeNotice.value = `有效时间:  ${year}-${month}-${day} 08:53:00至 ${year}-${month}-${day} 22:10:00`;
 
   setInterval(() => {
     if (curSec.value === 0) {
@@ -81,7 +81,7 @@ body {
     overflow: hidden;
 
     .container {
-      margin-top: 42px;
+      margin-top: 38px;
       width: 360px;
       height: 556px;
       display: flex;
@@ -93,7 +93,8 @@ body {
 
       .title {
         margin-top: 35px;
-        font-size: 20px;
+        font-size: 19px;
+        font-weight: 500;
       }
 
       .pic-container {
@@ -116,21 +117,25 @@ body {
 
       .notice {
         margin-top: 5px;
+        font-weight:500;
       }
 
       .counterDown {
         color: #9899fe;
         margin-top: 20px;
         font-size: 32px;
+        font-weight: 500;
       }
 
       .username {
         font-size: 21px;
         margin-top: 20px;
+        font-weight:500;
       }
 
       .time-notice {
         margin-top: 15px;
+        font-weight: 500;
         font-size: 18px;
         padding-left: 30px;
         padding-right: 30px;
