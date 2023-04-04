@@ -16,7 +16,7 @@
 <script lang="ts" setup>
 import { ref, onMounted } from "vue";
 
-const InitNum = 11 ;
+const InitNum = 11;
 const curSec = ref(InitNum);
 const username = ref("肖建军");
 const timeNotice = ref("");
@@ -28,28 +28,34 @@ onMounted(() => {
   const day = date.getDate().toString().padStart(2, "0");
   timeNotice.value = `有效时间: ${year}-${month}-${day} 08:53:00至 ${year}-${month}-${day} 22:10:00`;
 
-  setInterval(()=>{
-    if( curSec.value === 0 ){
+  setInterval(() => {
+    if (curSec.value === 0) {
       curSec.value = InitNum;
-    }else {
-      curSec.value -- ;
+    } else {
+      curSec.value--;
     }
-  }, 1000)
-
+  }, 1000);
 });
 </script>
 
 <style lang="less" scoped>
 * {
   box-sizing: border-box;
-  overflow: hidden;
-  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  height: 100%;
+  height: 100vh;
 }
 
 body {
+  min-height: 100%;
   overflow: hidden;
-  width: 100vw;
-  height: 100vh;
+  border: none;
+  margin: 0;
+  padding: 0;
 }
 
 #app {
@@ -64,7 +70,7 @@ body {
   overflow: hidden;
 
   .base {
-    width: 100vw;
+    width: 100%;
     height: 100vh;
     display: flex;
     flex-direction: column;
