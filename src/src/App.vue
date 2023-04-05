@@ -84,7 +84,7 @@ body {
     align-items: center;
     background-color: #00a3e8;
     overflow: hidden;
-    color: #48A1E4;
+    color: #037CF3;
 
     .container {
       margin-top: 38px;
@@ -104,10 +104,10 @@ body {
       }
 
       .pic-container {
-        margin-top: 10px;
+        margin-top: 8px;
         width: 228px;
         height: 228px;
-        border: 4px solid #48A1E4;
+        border: 4px solid #037CF3;
         display: flex;
         flex-direction: column;
         justify-content: center;
