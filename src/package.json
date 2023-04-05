@@ -8,7 +8,10 @@
         "serve": "vite preview"
     },
     "dependencies": {
-        "vue": "^3.0.0"
+        "esbuild": "^0.17.15",
+        "query-string": "^8.1.0",
+        "vue": "^3.0.0",
+        "vue-router": "4"
     },
     "devDependencies": {
         "@vitejs/plugin-vue": "^1.4.4",

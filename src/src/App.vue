@@ -15,10 +15,13 @@
 
 <script lang="ts" setup>
 import { ref, onMounted } from "vue";
+import queryString from "query-string";
 
-const InitNum = 2;
+const InitNum = 11;
 const curSec = ref(InitNum);
-const username = ref("肖建军");
+const username = ref(
+  queryString.parse(decodeURIComponent(window.location.search)).name
+);
 const timeNotice = ref("");
 const code1 = "/assets/code1.png";
 const code2 = "/assets/code2.png";
