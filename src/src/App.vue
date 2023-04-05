@@ -1,9 +1,9 @@
 <template>
   <div class="base">
     <div class="container">
-      <span class="title">访客通行 3</span>
+      <span class="title">访客通行</span>
       <div class="pic-container">
-        <img src="/assets/code1.png" />
+        <img :src="imgUrl" />
       </div>
       <span class="notice">动态二维码，截图无效</span>
       <span class="counterDown">{{ `${curSec}秒` }}</span>
@@ -16,12 +16,17 @@
 <script lang="ts" setup>
 import { ref, onMounted } from "vue";
 
-const InitNum = 11;
+const InitNum = 2;
 const curSec = ref(InitNum);
 const username = ref("肖建军");
 const timeNotice = ref("");
 
+const code1 = "/assets/code1.png";
+const code2 = "/assets/code2.png";
+const imgUrl = ref(code1);
+
 onMounted(() => {
+  imgUrl.value = code1;
   const date = new Date();
   const year = date.getFullYear();
   const month = (date.getMonth() + 1).toString().padStart(2, "0");
@@ -31,6 +36,7 @@ onMounted(() => {
   setInterval(() => {
     if (curSec.value === 0) {
       curSec.value = InitNum;
+      imgUrl.value = imgUrl.value === code1 ? code2 : code1;
     } else {
       curSec.value--;
     }
@@ -83,7 +89,7 @@ body {
     .container {
       margin-top: 38px;
       width: 360px;
-      height: 556px;
+      height: 540px;
       display: flex;
       flex-direction: column;
       justify-content: flex-start;
