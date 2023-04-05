@@ -13,4 +13,14 @@ export default defineConfig({
       },
     },
   },
+  build: {
+    rollupOptions: {
+      output: {
+        // 设置 index.html 缓存为 no-cache
+        headers: {
+          "Cache-Control": "no-cache",
+        },
+      },
+    },
+  },
 });

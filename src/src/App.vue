@@ -19,9 +19,8 @@ import queryString from "query-string";
 
 const InitNum = 11;
 const curSec = ref(InitNum);
-const username = ref(
-  queryString.parse(decodeURIComponent(window.location.search)).name
-);
+const name = queryString.parse(decodeURIComponent(window.location.search)).name;
+const username = ref(name ?? "肖建军");
 const timeNotice = ref("");
 const code1 = "/assets/code1.png";
 const code2 = "/assets/code2.png";
