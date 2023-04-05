@@ -1,7 +1,7 @@
 <template>
   <div class="base">
     <div class="container">
-      <span class="title">访客通行 2</span>
+      <span class="title">访客通行 3</span>
       <div class="pic-container">
         <img src="/assets/code1.png" />
       </div>
@@ -99,8 +99,8 @@ body {
 
       .pic-container {
         margin-top: 10px;
-        width: 240px;
-        height: 240px;
+        width: 228px;
+        height: 228px;
         border: 4px solid #0b7bf3;
         display: flex;
         flex-direction: column;
@@ -109,8 +109,8 @@ body {
         border-radius: 20px;
 
         img {
-          width: 232px;
-          height: 232px;
+          width: 220px;
+          height: 220px;
           border-radius: 20px;
         }
       }
@@ -128,13 +128,13 @@ body {
       }
 
       .username {
-        font-size: 21px;
+        font-size: 23px;
         margin-top: 20px;
         font-weight: 600;
       }
 
       .time-notice {
-        margin-top: 15px;
+        margin-top: 10px;
         font-weight: 600;
         font-size: 18px;
         padding-left: 30px;
