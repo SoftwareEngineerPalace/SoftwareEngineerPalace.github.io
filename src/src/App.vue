@@ -20,7 +20,6 @@ const InitNum = 2;
 const curSec = ref(InitNum);
 const username = ref("肖建军");
 const timeNotice = ref("");
-
 const code1 = "/assets/code1.png";
 const code2 = "/assets/code2.png";
 const imgUrl = ref(code1);
