@@ -35,7 +35,7 @@ onMounted(() => {
   timeNotice.value = `有效时间:  ${year}-${month}-${day} 08:53:00至 ${year}-${month}-${day} 22:10:00`;
 
   setInterval(() => {
-    if (curSec.value === 0) {
+    if (curSec.value === 1) {
       curSec.value = InitNum;
       imgUrl.value = imgUrl.value === code1 ? code2 : code1;
     } else {
