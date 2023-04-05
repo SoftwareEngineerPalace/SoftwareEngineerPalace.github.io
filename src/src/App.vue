@@ -82,9 +82,9 @@ body {
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    background-color: #00a3e8;
+    background-color: rgba(72, 160, 226);
     overflow: hidden;
-    color: #037CF3;
+    color: rgba(55, 122, 235);
 
     .container {
       margin-top: 38px;
@@ -107,7 +107,7 @@ body {
         margin-top: 8px;
         width: 228px;
         height: 228px;
-        border: 4px solid #037CF3;
+        border: 4px solid #037cf3;
         display: flex;
         flex-direction: column;
         justify-content: center;
