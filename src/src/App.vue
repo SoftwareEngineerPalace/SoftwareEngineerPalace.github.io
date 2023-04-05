@@ -1,7 +1,18 @@
 <template>
   <router-view></router-view>
 </template>
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import { ref, onMounted } from "vue";
+import queryString from "query-string";
+import { useRouter } from "vue-router";
+let router = useRouter();
+
+const path = queryString.parse(decodeURIComponent(window.location.search)).path;
+
+if (!!path) {
+  router.replace({ name: path });
+}
+</script>
 <style lang="less" scoped>
 * {
   box-sizing: border-box;
