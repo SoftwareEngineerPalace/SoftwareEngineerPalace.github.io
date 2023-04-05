@@ -72,7 +72,6 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
   margin-top: 60px;
   overflow: hidden;
 
@@ -84,8 +83,8 @@ body {
     justify-content: flex-start;
     align-items: center;
     background-color: #00a3e8;
-    color: #0b7bf3;
     overflow: hidden;
+    color: #48A1E4;
 
     .container {
       margin-top: 38px;
@@ -108,7 +107,7 @@ body {
         margin-top: 10px;
         width: 228px;
         height: 228px;
-        border: 4px solid #0b7bf3;
+        border: 4px solid #48A1E4;
         display: flex;
         flex-direction: column;
         justify-content: center;
