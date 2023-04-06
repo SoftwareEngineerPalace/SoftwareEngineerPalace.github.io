@@ -15,15 +15,15 @@
       <!-- <draggable v-model="list" :sortable="{ group: 'items', animation: 300 }"> -->
       <a-list-item v-for="(item, index) in list" :key="item.id">
         <div class="container">
-          <span class="deadline">{{ `${item.deadline} 完成` }}</span>
+          <span class="deadline">{{ `${item.deadline}` }}</span>
           <a-input
             class="name"
             :style="{
-              background: colorMap[item.priority],
+              color: colorMap[item.priority],
               height: `${item.duration * 2}px`,
             }"
             v-model:value="item.name"
-            placeholder="请写任务名"
+            placeholder="任务"
           >
           </a-input>
           <a-radio-group
@@ -48,7 +48,7 @@
             <a-radio :value="120">120</a-radio>
           </a-radio-group>
 
-          <a-button class='delete'>删</a-button>
+          <a-button class="delete" @click="onDelete(index)">删</a-button>
         </div>
       </a-list-item>
       <!-- </draggable> -->
@@ -62,9 +62,9 @@ import dayjs from "dayjs";
 // import draggable from "vuedraggable";
 
 const colorMap = {
-  3: "red",
-  2: "purple",
-  1: "green",
+  3: "#FF6B6B",
+  2: "#FF9F1C",
+  1: "#4ECDC4",
 };
 
 onMounted(() => {
@@ -134,6 +134,10 @@ const onDurationChange = () => {
   save();
 };
 
+const onDelete = (index)=>{
+  list.value = list.value.slice(0, index).concat( list.value.slice( index + 1 ));
+}
+
 const updateDeadline = () => {
   let pre = initTime.value;
   list.value = list.value.map((cur: any) => {
@@ -185,6 +189,7 @@ const list = ref([]);
     .deadline {
       margin-left: 20px;
       font-size: 20px;
+      white-space: nowrap;
     }
 
     .name {
@@ -194,6 +199,8 @@ const list = ref([]);
       color: white;
       margin-right: 10px;
       margin-left: 10px;
+      font-weight: 500;
+      background: #eeeeee;
     }
 
     .delete {
