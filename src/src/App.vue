@@ -12,6 +12,15 @@ let router = useRouter();
 // if (!!path) {
 //   router.replace({ name: path });
 // }
+
+console.log('router currentRoute', router.currentRoute) ;
+
+if (router.currentRoute.value.path === '/task') {
+  router.replace('/task');
+}else if( router.currentRoute.value.path === '/gate'){
+  router.replace('/gate');
+}
+
 </script>
 <style lang="less" scoped>
 * {
