@@ -108,7 +108,7 @@ const setNowForStart = () => {
   }
 
   initTime.value = hour * 60 + nextTenMin * 10;
-  initTimeRaw.value = `${hour}:${nextTenMin * 10}`
+  initTimeRaw.value = `${hour > 9 ? hour : "0" + hour}:${nextTenMin * 10}`
   updateDeadline();
   save();
 };
@@ -140,9 +140,10 @@ const updateDeadline = () => {
 
 const formatTime = (totalMinutes) => {
   const hours = Math.floor(totalMinutes / 60);
+  const houreStr = `${hours > 9 ? hours : "0" + hours}`;
   const minutes = totalMinutes % 60;
-  if (minutes === 0) return `${hours}点`;
-  if (minutes !== 0) return `${hours}:${minutes}`;
+  if (minutes === 0) return `${houreStr}:00`;
+  if (minutes !== 0) return `${houreStr}:${minutes > 9 ? minutes : '0' + minutes}`;
 };
 
 const save = () => {
