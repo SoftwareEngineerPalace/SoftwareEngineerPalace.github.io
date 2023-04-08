@@ -7,11 +7,11 @@ import queryString from "query-string";
 import { useRouter } from "vue-router";
 let router = useRouter();
 
-// const path = queryString.parse(decodeURIComponent(window.location.search)).path;
+const _path: string = queryString.parse(decodeURIComponent(window.location.search)).path as string;
 
-// if (!!path) {
-//   router.replace({ path: path });
-// }
+if (!!_path) {
+  router.replace({ path: _path });
+}
 
 // console.log('router currentRoute', router.currentRoute);
 
