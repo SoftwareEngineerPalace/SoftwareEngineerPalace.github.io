@@ -8,6 +8,11 @@ export default [
     component: Nav,
   },
   {
+    path: '/index.html',
+    name: 'nav',
+    component: Nav,
+  },
+  {
     path: "/task",
     name: "task",
     component: Task,
