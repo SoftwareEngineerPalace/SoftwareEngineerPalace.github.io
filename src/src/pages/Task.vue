@@ -1,19 +1,30 @@
 <template>
   <div class="base">
-
-    <div class="initime">
-      <a-input class="initime__input" v-model:value="initTimeRaw" placeholder="请输入起始时间" />
+    <div class="topBar">
+      <a-input
+        class="initime__input"
+        v-model:value="initTimeRaw"
+        placeholder="请输入起始时间"
+      />
       <a-button class="initime__ok" @click="onConfirmInitTime">确定</a-button>
+      <a-button class="btn-now" @click="setNowForStart"
+        >设定当前为起始时间</a-button
+      >
+      <a-button class="btn-add" @click="addOne">新增</a-button>
     </div>
-
-    <a-button class="btn-now" @click="setNowForStart">设定当前为起始时间</a-button>
 
     <div class="wrapper" ref="listRef">
       <div class="container" v-for="(item, index) in list" :key="item.id">
         <span class="deadline">{{ `${item.deadline}` }}</span>
-        <a-textarea class="name" :autoSize="{ minRows: 1, maxRows: 6 }" :style="{
-          color: colorMap[item.priority],
-        }" v-model:value="item.name" placeholder="任务">
+        <a-textarea
+          class="name"
+          :autoSize="{ minRows: 1, maxRows: 6 }"
+          :style="{
+            color: colorMap[item.priority],
+          }"
+          v-model:value="item.name"
+          placeholder="任务"
+        >
         </a-textarea>
         <a-radio-group v-model:value="item.priority" @change="priorityChanged">
           <a-radio :value="3">高</a-radio>
@@ -34,15 +45,13 @@
         <a-button class="delete" @click="onDelete(index)">删</a-button>
       </div>
     </div>
-
-    <a-button class="btn-add" @click="addOne">新增</a-button>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
 import dayjs from "dayjs";
-import Sortable from 'sortablejs'
+import Sortable from "sortablejs";
 
 const colorMap = {
   3: "#FF6B6B",
@@ -68,7 +77,7 @@ onMounted(() => {
     save();
   }
 
-  new Sortable(listRef.value)
+  new Sortable(listRef.value);
 });
 
 /** 方法 1 */
@@ -107,9 +116,14 @@ const setNowForStart = () => {
     hour++;
     nextTenMin = 0;
   }
+  if( hour === 24 ){
+    hour = 0;
+  }
 
   initTime.value = hour * 60 + nextTenMin * 10;
-  initTimeRaw.value = `${hour > 9 ? hour : "0" + hour}:${nextTenMin * 10}`
+  initTimeRaw.value = `${hour > 9 ? hour : "0" + hour}:${
+    nextTenMin !== 0 ? nextTenMin * 10 : "00"
+  }`;
   updateDeadline();
   save();
 };
@@ -140,11 +154,15 @@ const updateDeadline = () => {
 };
 
 const formatTime = (totalMinutes) => {
-  const hours = Math.floor(totalMinutes / 60);
+  let hours = Math.floor(totalMinutes / 60);
+  if( hours >= 24){
+    hours = (hours % 24);
+  }
   const houreStr = `${hours > 9 ? hours : "0" + hours}`;
   const minutes = totalMinutes % 60;
   if (minutes === 0) return `${houreStr}:00`;
-  if (minutes !== 0) return `${houreStr}:${minutes > 9 ? minutes : '0' + minutes}`;
+  if (minutes !== 0)
+    return `${houreStr}:${minutes > 9 ? minutes : "0" + minutes}`;
 };
 
 const save = () => {
@@ -161,10 +179,12 @@ const list = ref<any>([]);
   justify-content: flex-start;
   flex-direction: column;
 
-  .initime {
+  .topBar {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
+    align-items: center;
+    margin: 20px 0 20px 0;
 
     .initime__input {
       width: 30%;
@@ -178,12 +198,10 @@ const list = ref<any>([]);
 
   .btn-now {
     align-self: flex-end;
-    margin-bottom: 10px;
   }
 
   .btn-add {
     align-self: center;
-    margin-top: 20px;
   }
 
   .wrapper {
@@ -217,7 +235,6 @@ const list = ref<any>([]);
         background: #eeeeee;
         padding: 0;
         text-align: center;
-
       }
 
       .delete {

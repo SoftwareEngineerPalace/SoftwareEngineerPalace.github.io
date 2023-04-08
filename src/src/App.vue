@@ -1,6 +1,4 @@
 <template>
-  <router-link to="/gate">uibe-gate</router-link>
-  <router-link to='/task'>daily-task</router-link>
   <router-view></router-view>
 </template>
 <script lang="ts" setup>
