@@ -181,8 +181,8 @@ const list = ref<any>([]);
   }
 
   .btn-add {
-    align-self: flex-end;
-    margin-top: 10px;
+    align-self: center;
+    margin-top: 20px;
   }
 
   .wrapper {
