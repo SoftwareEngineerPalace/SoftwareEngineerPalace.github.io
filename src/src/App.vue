@@ -7,19 +7,19 @@ import queryString from "query-string";
 import { useRouter } from "vue-router";
 let router = useRouter();
 
-const path = queryString.parse(decodeURIComponent(window.location.search)).path;
+// const path = queryString.parse(decodeURIComponent(window.location.search)).path;
 
-if (!!path) {
-  router.replace({ name: path });
-}
+// if (!!path) {
+//   router.replace({ path: path });
+// }
 
-console.log('router currentRoute', router.currentRoute);
+// console.log('router currentRoute', router.currentRoute);
 
-if (router.currentRoute.value.path === '/task') {
-  router.replace('/task');
-} else if (router.currentRoute.value.path === '/gate') {
-  router.replace('/gate');
-}
+// if (router.currentRoute.value.path === '/task') {
+//   router.replace('/task');
+// } else if (router.currentRoute.value.path === '/gate') {
+//   router.replace('/gate');
+// }
 
 </script>
 <style lang="less" scoped>

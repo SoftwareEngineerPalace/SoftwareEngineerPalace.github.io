@@ -1,71 +1,57 @@
 <template>
   <div class="base">
-    <a-button @click="addOne">新增任务</a-button>
+
     <div class="initime">
-      <a-input
-        class="initime__input"
-        v-model:value="initTimeRaw"
-        placeholder="请输入起始时间"
-      />
+      <a-input class="initime__input" v-model:value="initTimeRaw" placeholder="请输入起始时间" />
       <a-button class="initime__ok" @click="onConfirmInitTime">确定</a-button>
     </div>
-    <a-button @click="setNowForStart">设定当前为起始时间</a-button>
 
-    <a-list item-layout="vertical">
-      <!-- <draggable v-model="list" :sortable="{ group: 'items', animation: 300 }"> -->
-      <a-list-item v-for="(item, index) in list" :key="item.id">
-        <div class="container">
-          <span class="deadline">{{ `${item.deadline}` }}</span>
-          <a-input
-            class="name"
-            :style="{
-              color: colorMap[item.priority],
-              height: `${item.duration * 2}px`,
-            }"
-            v-model:value="item.name"
-            placeholder="任务"
-          >
-          </a-input>
-          <a-radio-group
-            v-model:value="item.priority"
-            @change="priorityChanged"
-          >
-            <a-radio :value="3">高</a-radio>
-            <a-radio :value="2">中</a-radio>
-            <a-radio :value="1">低</a-radio>
-          </a-radio-group>
-          <a-radio-group
-            v-model:value="item.duration"
-            @change="onDurationChange"
-          >
-            <a-radio :value="10">10</a-radio>
-            <a-radio :value="20">20</a-radio>
-            <a-radio :value="30">30</a-radio>
-            <a-radio :value="40">40</a-radio>
-            <a-radio :value="50">50</a-radio>
-            <a-radio :value="60">60</a-radio>
-            <a-radio :value="90">90</a-radio>
-            <a-radio :value="120">120</a-radio>
-          </a-radio-group>
+    <a-button class="btn-now" @click="setNowForStart">设定当前为起始时间</a-button>
 
-          <a-button class="delete" @click="onDelete(index)">删</a-button>
-        </div>
-      </a-list-item>
-      <!-- </draggable> -->
-    </a-list>
+    <div class="wrapper" ref="listRef">
+      <div class="container" v-for="(item, index) in list" :key="item.id">
+        <span class="deadline">{{ `${item.deadline}` }}</span>
+        <a-input class="name" :style="{
+          color: colorMap[item.priority],
+          height: `${item.duration * 2}px`,
+        }" v-model:value="item.name" placeholder="任务">
+        </a-input>
+        <a-radio-group v-model:value="item.priority" @change="priorityChanged">
+          <a-radio :value="3">高</a-radio>
+          <a-radio :value="2">中</a-radio>
+          <a-radio :value="1">低</a-radio>
+        </a-radio-group>
+        <a-radio-group v-model:value="item.duration" @change="onDurationChange">
+          <a-radio :value="10">10</a-radio>
+          <a-radio :value="20">20</a-radio>
+          <a-radio :value="30">30</a-radio>
+          <a-radio :value="40">40</a-radio>
+          <a-radio :value="50">50</a-radio>
+          <a-radio :value="60">60</a-radio>
+          <a-radio :value="90">90</a-radio>
+          <a-radio :value="120">120</a-radio>
+        </a-radio-group>
+
+        <a-button class="delete" @click="onDelete(index)">删</a-button>
+      </div>
+    </div>
+
+    <a-button class="btn-add" @click="addOne">新增</a-button>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, watch, onMounted } from "vue";
+import { ref, onMounted } from "vue";
 import dayjs from "dayjs";
-// import draggable from "vuedraggable";
+import Sortable from 'sortablejs'
 
 const colorMap = {
   3: "#FF6B6B",
   2: "#FF9F1C",
   1: "#4ECDC4",
 };
+
+const listRef = ref(null);
 
 onMounted(() => {
   // localStorage.removeItem("list");
@@ -81,6 +67,8 @@ onMounted(() => {
       });
     save();
   }
+
+  new Sortable(listRef.value)
 });
 
 /** 方法 1 */
@@ -109,12 +97,16 @@ const onConfirmInitTime = () => {
 
 const setNowForStart = () => {
   const now = dayjs(); // 获取当前时间
-  const hour = now.hour(); // 获取当前时间的小时部分
+  let hour = now.hour(); // 获取当前时间的小时部分
   const minute = now.minute(); // 获取当前时间的分钟部分
 
   const quotient = Math.floor(minute / 10);
   const remainder = minute / 10;
-  const nextTenMin = remainder === 0 ? quotient : quotient + 1;
+  let nextTenMin = remainder === 0 ? quotient : quotient + 1;
+  if (nextTenMin === 5) {
+    hour++;
+    nextTenMin = 0;
+  }
 
   initTime.value = hour * 60 + nextTenMin * 10;
   initTimeRaw.value = `${hour}:${nextTenMin * 10}`
@@ -134,8 +126,8 @@ const onDurationChange = () => {
   save();
 };
 
-const onDelete = (index)=>{
-  list.value = list.value.slice(0, index).concat( list.value.slice( index + 1 ));
+const onDelete = (index) => {
+  list.value = list.value.slice(0, index).concat(list.value.slice(index + 1));
 }
 
 const updateDeadline = () => {
@@ -158,12 +150,15 @@ const save = () => {
   localStorage.setItem("list", JSON.stringify(list.value));
 };
 
-const list = ref([]);
+const list = ref<any>([]);
 </script>
 
 <style scoped lang="less">
 .base {
   color: white;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
 
   .initime {
     display: flex;
@@ -180,37 +175,53 @@ const list = ref([]);
     }
   }
 
-  .container {
-    width: 100vw;
+  .btn-now {
+    align-self: flex-end;
+  }
+
+  .btn-add {
+    align-self: flex-end;
+  }
+
+  .wrapper {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    justify-content: flex-start;
     align-items: center;
 
-    .deadline {
-      margin-left: 20px;
-      font-size: 20px;
-      white-space: nowrap;
-    }
+    .container {
+      width: 100vw;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
 
-    .name {
-      width: 150px;
-      white-space: wrap;
-      text-align: center;
-      color: white;
-      margin-right: 10px;
-      margin-left: 10px;
-      font-weight: 500;
-      background: #eeeeee;
-    }
+      .deadline {
+        margin-left: 20px;
+        font-size: 20px;
+        white-space: nowrap;
+        color: chocolate;
+      }
 
-    .delete {
-      width: 25px;
-      flex-shrink: 0;
-      font-size: 10px;
-      text-align: center;
-      letter-spacing: 0;
-      margin-right: 5px;
-      padding: 0;
+      .name {
+        width: 150px;
+        white-space: wrap;
+        text-align: center;
+        color: white;
+        margin-right: 10px;
+        margin-left: 10px;
+        font-weight: 500;
+        background: #eeeeee;
+      }
+
+      .delete {
+        width: 25px;
+        flex-shrink: 0;
+        font-size: 10px;
+        text-align: center;
+        letter-spacing: 0;
+        margin-right: 5px;
+        padding: 0;
+      }
     }
   }
 }
