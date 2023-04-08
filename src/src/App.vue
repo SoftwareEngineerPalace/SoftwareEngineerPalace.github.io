@@ -1,4 +1,6 @@
 <template>
+  <router-link to="/gate">uibe-gate</router-link>
+  <router-link to='/task'>daily-task</router-link>
   <router-view></router-view>
 </template>
 <script lang="ts" setup>
@@ -6,21 +8,6 @@ import { ref, onMounted } from "vue";
 import queryString from "query-string";
 import { useRouter } from "vue-router";
 let router = useRouter();
-
-const _path: string = queryString.parse(decodeURIComponent(window.location.search)).path as string;
-
-if (!!_path) {
-  router.replace({ path: _path });
-}
-
-// console.log('router currentRoute', router.currentRoute);
-
-// if (router.currentRoute.value.path === '/task') {
-//   router.replace('/task');
-// } else if (router.currentRoute.value.path === '/gate') {
-//   router.replace('/gate');
-// }
-
 </script>
 <style lang="less" scoped>
 * {

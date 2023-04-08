@@ -53,7 +53,7 @@ const colorMap = {
 const listRef = ref(null);
 
 onMounted(() => {
-  // localStorage.removeItem("list");
+  localStorage.removeItem("list");
   const raw = localStorage.getItem("list");
   console.log("raw", raw);
   if (!!raw) {
@@ -64,6 +64,7 @@ onMounted(() => {
       .map((v) => {
         return { name: "", duration: 10, deadline: "", priority: 3 };
       });
+    updateDeadline();
     save();
   }
 
@@ -127,7 +128,7 @@ const onDurationChange = () => {
 
 const onDelete = (index) => {
   list.value = list.value.slice(0, index).concat(list.value.slice(index + 1));
-}
+};
 
 const updateDeadline = () => {
   let pre = initTime.value;
