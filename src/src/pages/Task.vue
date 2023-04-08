@@ -11,11 +11,11 @@
     <div class="wrapper" ref="listRef">
       <div class="container" v-for="(item, index) in list" :key="item.id">
         <span class="deadline">{{ `${item.deadline}` }}</span>
-        <a-input class="name" :style="{
+        <a-textarea class="name" :style="{
           color: colorMap[item.priority],
           height: `${item.duration * 2}px`,
         }" v-model:value="item.name" placeholder="任务">
-        </a-input>
+        </a-textarea>
         <a-radio-group v-model:value="item.priority" @change="priorityChanged">
           <a-radio :value="3">高</a-radio>
           <a-radio :value="2">中</a-radio>
@@ -177,10 +177,12 @@ const list = ref<any>([]);
 
   .btn-now {
     align-self: flex-end;
+    margin-bottom: 10px;
   }
 
   .btn-add {
     align-self: flex-end;
+    margin-top: 10px;
   }
 
   .wrapper {
@@ -194,9 +196,10 @@ const list = ref<any>([]);
       display: flex;
       justify-content: space-between;
       align-items: center;
+      border-bottom: 1px gainsboro dashed;
 
       .deadline {
-        margin-left: 20px;
+        margin-left: 10px;
         font-size: 20px;
         white-space: nowrap;
         color: chocolate;
@@ -211,6 +214,9 @@ const list = ref<any>([]);
         margin-left: 10px;
         font-weight: 500;
         background: #eeeeee;
+        padding: 0;
+        text-align: center;
+
       }
 
       .delete {
