@@ -11,9 +11,8 @@
     <div class="wrapper" ref="listRef">
       <div class="container" v-for="(item, index) in list" :key="item.id">
         <span class="deadline">{{ `${item.deadline}` }}</span>
-        <a-textarea class="name" :style="{
+        <a-textarea class="name" :autoSize="{ minRows: 1, maxRows: 6 }" :style="{
           color: colorMap[item.priority],
-          height: `${item.duration * 2}px`,
         }" v-model:value="item.name" placeholder="任务">
         </a-textarea>
         <a-radio-group v-model:value="item.priority" @change="priorityChanged">
