@@ -112,7 +112,7 @@ const setNowForStart = () => {
   const quotient = Math.floor(minute / 10);
   const remainder = minute / 10;
   let nextTenMin = remainder === 0 ? quotient : quotient + 1;
-  if (nextTenMin === 5) {
+  if (nextTenMin === 6) {
     hour++;
     nextTenMin = 0;
   }
