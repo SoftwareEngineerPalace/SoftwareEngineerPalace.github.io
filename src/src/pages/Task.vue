@@ -69,7 +69,7 @@ onMounted(() => {
     list.value = Array(5)
       .fill(1)
       .map((v) => {
-        return { name: "", duration: 10, deadline: "", priority: 3 };
+        return { name: "", duration: 10, deadline: "", priority: 1 };
       });
     updateDeadline();
     save();
