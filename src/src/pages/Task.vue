@@ -36,10 +36,8 @@
           <a-radio :value="20">20</a-radio>
           <a-radio :value="30">30</a-radio>
           <a-radio :value="40">40</a-radio>
-          <a-radio :value="50">50</a-radio>
           <a-radio :value="60">60</a-radio>
           <a-radio :value="90">90</a-radio>
-          <a-radio :value="120">120</a-radio>
         </a-radio-group>
 
         <a-button class="delete" @click="onDelete(index)">删</a-button>
