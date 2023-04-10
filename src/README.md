@@ -6,4 +6,5 @@ This template should help get you started developing with Vue 3 in Vite. The tem
 
 - [VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar)
 
+// macbook 来用:
 ssh-add --apple-use-keychain ~/.ssh/id_ed25519
