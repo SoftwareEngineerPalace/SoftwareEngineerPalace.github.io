@@ -1,18 +1,30 @@
 <template>
   <div class="base">
     <div class="topBar">
-      <a-input class="initime__input" v-model:value="initTimeRaw" placeholder="请输入起始时间" />
+      <a-input
+        class="initime__input"
+        v-model:value="initTimeRaw"
+        placeholder="请输入起始时间"
+      />
       <a-button class="initime__ok" @click="onConfirmInitTime">确定</a-button>
-      <a-button class="btn-now" @click="setNowForStart">设定当前为起始时间</a-button>
+      <a-button class="btn-now" @click="setNowForStart"
+        >设定当前为起始时间</a-button
+      >
       <a-button class="btn-add" @click="addOne">新增</a-button>
     </div>
 
     <div class="wrapper" ref="listRef">
       <div class="container" v-for="(item, index) in list" :key="item.id">
         <span class="deadline">{{ `${item.deadline}` }}</span>
-        <a-textarea class="name" :autoSize="{ minRows: 1, maxRows: 6 }" :style="{
-          color: colorMap[item.priority],
-        }" v-model:value="item.name" placeholder="任务">
+        <a-textarea
+          class="name"
+          :autoSize="{ minRows: 1, maxRows: 6 }"
+          :style="{
+            color: colorMap[item.priority],
+          }"
+          v-model:value="item.name"
+          placeholder="任务"
+        >
         </a-textarea>
         <a-radio-group v-model:value="item.priority" @change="priorityChanged">
           <a-radio :value="3">高</a-radio>
@@ -35,9 +47,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, toRaw } from "vue";
+import { ref, onMounted, toRaw, nextTick } from "vue";
 import dayjs from "dayjs";
 import Sortable from "sortablejs";
+import { v4 as uuidv4 } from "uuid";
 
 const colorMap = {
   3: "#FF6B6B",
@@ -48,50 +61,53 @@ const colorMap = {
 const listRef = ref(null);
 
 onMounted(() => {
-  localStorage.removeItem("list");
   const raw = localStorage.getItem("list");
-  console.log("raw", raw);
   if (!!raw) {
     list.value = JSON.parse(raw);
+    update();
   } else {
-    list.value = Array(5)
+    list.value = Array(3)
       .fill(1)
       .map((v) => {
-        return { name: "", duration: 10, deadline: "", priority: 1 };
+        return {
+          name: "",
+          duration: 10,
+          deadline: "",
+          priority: 1,
+          id: uuidv4(),
+        };
       });
-    updateDeadline();
-    save();
   }
 
   new Sortable(listRef.value, {
     onEnd: (evt) => {
-      console.log('onEnd', { evt });
-      const ele = JSON.parse(JSON.stringify(list.value[evt.oldIndex]));
+      const picked = JSON.parse(JSON.stringify(list.value[evt.oldIndex]));
       list.value[evt.oldIndex].delete = true;
-      const pre = list.value.slice(0, evt.newIndex);
-      console.log('pre', pre);
-      const suf = list.value.slice(evt.nexIndex + 1);
-      console.log('suf', suf);
-      let aList = pre.concat(ele).concat(suf);
-      console.log('aList', aList);
-      const last = aList.map(v => {
-        if (!v.hasOwnProperty('delete')) {
-          return toRaw(v);
-        }
-      });
-      console.log("last", last);
-      list.value = last;
-    }
+      let newList = list.value
+        .slice(0, evt.newIndex)
+        .concat(picked)
+        .concat(list.value.slice(evt.newIndex))
+        .filter((v) => !v.hasOwnProperty("delete"))
+        .map((v) => toRaw(v));
+      // console.log("拖动完后", newList);
+      list.value = newList;
+      update();
+    },
   });
 });
 
 /** 方法 1 */
 const addOne = () => {
-  const one = { name: "", duration: 10, deadline: "", priority: 3 };
+  const one = {
+    name: "",
+    duration: 10,
+    deadline: "",
+    priority: 1,
+    id: uuidv4(),
+  };
   list.value.push(one);
 
-  updateDeadline();
-  save();
+  update();
 };
 
 /** 方法 2 */
@@ -105,8 +121,7 @@ const onConfirmInitTime = () => {
   const m = parseInt(times[1]);
   initTime.value = h * 60 + m;
 
-  updateDeadline();
-  save();
+  update();
 };
 
 const setNowForStart = () => {
@@ -126,26 +141,44 @@ const setNowForStart = () => {
   }
 
   initTime.value = hour * 60 + nextTenMin * 10;
-  initTimeRaw.value = `${hour > 9 ? hour : "0" + hour}:${nextTenMin !== 0 ? nextTenMin * 10 : "00"
-    }`;
-  updateDeadline();
-  save();
+  initTimeRaw.value = `${hour > 9 ? hour : "0" + hour}:${
+    nextTenMin !== 0 ? nextTenMin * 10 : "00"
+  }`;
+  update();
 };
 
 const priorityChanged = () => {
-  console.log("priorityChanged");
-  list.value = list.value.sort((a, b) => b.priority - a.priority);
-  save();
+  update();
 };
 
 const onDurationChange = () => {
-  console.log("onDurationChange");
-  updateDeadline();
-  save();
+  update();
 };
 
 const onDelete = (index) => {
   list.value = list.value.slice(0, index).concat(list.value.slice(index + 1));
+  update();
+};
+
+const formatTime = (totalMinutes) => {
+  let hours = Math.floor(totalMinutes / 60);
+  if (hours >= 24) {
+    hours = hours % 24;
+  }
+  const houreStr = `${hours > 9 ? hours : "0" + hours}`;
+  const minutes = totalMinutes % 60;
+  if (minutes === 0) return `${houreStr}:00`;
+  if (minutes !== 0)
+    return `${houreStr}:${minutes > 9 ? minutes : "0" + minutes}`;
+};
+
+const update = () => {
+  list.value = list.value.sort((a, b) => toRaw(b).priority - toRaw(a).priority);
+  // console.log("update", toRaw(list.value));
+  nextTick(() => {
+    updateDeadline();
+    save();
+  });
 };
 
 const updateDeadline = () => {
@@ -155,18 +188,6 @@ const updateDeadline = () => {
     pre += cur.duration;
     return cur;
   });
-};
-
-const formatTime = (totalMinutes) => {
-  let hours = Math.floor(totalMinutes / 60);
-  if (hours >= 24) {
-    hours = (hours % 24);
-  }
-  const houreStr = `${hours > 9 ? hours : "0" + hours}`;
-  const minutes = totalMinutes % 60;
-  if (minutes === 0) return `${houreStr}:00`;
-  if (minutes !== 0)
-    return `${houreStr}:${minutes > 9 ? minutes : "0" + minutes}`;
 };
 
 const save = () => {
