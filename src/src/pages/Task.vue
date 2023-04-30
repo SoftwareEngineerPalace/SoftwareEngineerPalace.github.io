@@ -62,7 +62,7 @@ const listRef = ref(null);
 let hostname = window.location.hostname;
 
 onMounted(async () => {
-  const raw = await fetch(`http://${hostname}:3001/getTasks`).then((response) => response.json());
+  const raw = await fetch(`http://${hostname}:3000/getTasks`).then((response) => response.json());
   console.log("获取", raw);
   if (!!raw) {
     list.value = JSON.parse(raw);
@@ -207,7 +207,7 @@ const save = async () => {
   //   list: JSON.stringify(list.value),
   // }).toString();
   // const res = await fetch(url).then((response) => response.json());
-  const res = await fetch(`${origin}:3001/updateTasks`, {
+  const res = await fetch(`${origin}:3000/updateTasks`, {
     method: "POST",
     body: JSON.stringify(list.value),
     headers: {
