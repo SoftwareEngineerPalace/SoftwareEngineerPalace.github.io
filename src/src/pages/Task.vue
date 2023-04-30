@@ -250,8 +250,6 @@ const list = ref<any>([]);
       }
 
       .name {
-        width: 150px;
-        white-space: wrap;
         text-align: center;
         color: white;
         margin-right: 10px;
@@ -260,6 +258,8 @@ const list = ref<any>([]);
         background: #eeeeee;
         padding: 0;
         text-align: center;
+        width: 150px;
+        white-space: wrap;
       }
 
       .delete {
