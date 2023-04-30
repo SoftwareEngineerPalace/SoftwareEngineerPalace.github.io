@@ -59,9 +59,13 @@ const colorMap = {
 };
 
 const listRef = ref(null);
+let hostname = window.location.hostname;
 
-onMounted(() => {
-  const raw = localStorage.getItem("list");
+onMounted(async () => {
+  const raw = await fetch(`http://${hostname}:3001/getTasks`).then((response) =>
+    response.json()
+  );
+  console.log("获取", raw);
   if (!!raw) {
     list.value = JSON.parse(raw);
     update();
@@ -113,6 +117,7 @@ const addOne = () => {
 /** 方法 2 */
 const initTime = ref(8 * 60 + 30);
 const initTimeRaw = ref("8:30");
+/** 确认了初始时间 */
 const onConfirmInitTime = () => {
   const a = initTimeRaw.value.split(":");
   const b = initTimeRaw.value.split("：");
@@ -124,6 +129,7 @@ const onConfirmInitTime = () => {
   update();
 };
 
+/** 设置当前为开始 */
 const setNowForStart = () => {
   const now = dayjs(); // 获取当前时间
   let hour = now.hour(); // 获取当前时间的小时部分
@@ -147,19 +153,23 @@ const setNowForStart = () => {
   update();
 };
 
+/** 优先级更新了 */
 const priorityChanged = () => {
   update();
 };
 
+/** 时长更新了 */
 const onDurationChange = () => {
   update();
 };
 
+/** 被删除了 */
 const onDelete = (index) => {
   list.value = list.value.slice(0, index).concat(list.value.slice(index + 1));
   update();
 };
 
+/** 格式化时间 */
 const formatTime = (totalMinutes) => {
   let hours = Math.floor(totalMinutes / 60);
   if (hours >= 24) {
@@ -181,6 +191,7 @@ const update = () => {
   });
 };
 
+/** 更新 deadline */
 const updateDeadline = () => {
   let pre = initTime.value;
   list.value = list.value.map((cur: any) => {
@@ -190,8 +201,22 @@ const updateDeadline = () => {
   });
 };
 
-const save = () => {
-  localStorage.setItem("list", JSON.stringify(list.value));
+/** 保存 */
+
+const save = async () => {
+  // const url = new URL(`${origin}:3001/updateTasks`);
+  // url.search = new URLSearchParams({
+  //   list: JSON.stringify(list.value),
+  // }).toString();
+  // const res = await fetch(url).then((response) => response.json());
+  const res = await fetch(`${origin}:3001/updateTasks`, {
+    method: "POST",
+    body: JSON.stringify(list.value),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  console.log("保存", res);
 };
 
 const list = ref<any>([]);
