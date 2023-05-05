@@ -62,11 +62,12 @@ const listRef = ref(null);
 let hostname = window.location.hostname;
 
 onMounted(async () => {
-  const raw = await fetch(`http://${hostname}:3000/getTasks`).then((response) => response.json());
+  const raw = await fetch(`http://${hostname}:3000/getTasks`).then((response) =>
+    response.json()
+  );
   console.log("获取到的数据", raw);
   if (!!raw) {
     list.value = raw;
-    update();
   } else {
     list.value = Array(3)
       .fill(1)
@@ -79,6 +80,7 @@ onMounted(async () => {
           id: uuidv4(),
         };
       });
+    update();
   }
 
   new Sortable(listRef.value, {
