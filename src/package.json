@@ -5,13 +5,19 @@
   "license": "MIT",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && yarn delete && npm run mac_copy",
-    "delete": "yarn delete_assets && yarn delete_index && yarn delete_qrcode",
-    "delete_assets": "if [ -d ../assets ] ; then rm -rf ../assets ; fi ",
-    "delete_index": "if [ -e ../index.html ] ; then rm ../index.html ; fi ",
-    "delete_qrcode": "if [ -e ../qrcode.min.js ] ; then rm ../qrcode.min.js ; fi",
+    "build": "vite build && yarn wins_delete",
+    "mac_delete": "yarn mac_delete_assets && yarn mac_delete_index && yarn mac_delete_qrcode",
+    "mac_delete_assets": "if [ -d ../assets ] ; then rm -rf ../assets ; fi ",
+    "mac_delete_index": "if [ -e ../index.html ] ; then rm ../index.html ; fi ",
+    "mac_delete_qrcode": "if [ -e ../qrcode.min.js ] ; then rm ../qrcode.min.js ; fi",
+    
+    "wins_delete": "yarn wins_delete_assets && yarn wins_delete_index && yarn wins_delete_qrcode",
+    "wins_delete_assets":  "if exist ..\\assets rmdir /s /q ..\\assets",
+    "wins_delete_index": "if exist ..\\index.html del /s /q ..\\index.html",
+    "wins_delete_qrcode": "if exist ..\\qrcode.min.js del /s /q ..\\qrcode.min.js",
+    
     "serve": "vite preview",
-    "copy": "xcopy /s /i /y dist ../",
+    "wins_copy": "xcopy /s /i /y dist ../.",
     "mac_copy": "cp -R dist/ ../."
   },
   "dependencies": {

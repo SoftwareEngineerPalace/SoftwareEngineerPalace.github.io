@@ -63,7 +63,7 @@ let hostname = window.location.hostname;
 
 onMounted(async () => {
   const raw = await fetch(`http://${hostname}:3000/getTasks`).then((response) => response.json());
-  console.log("获取", raw);
+  console.log("获取到的数据", raw);
   if (!!raw) {
     list.value = JSON.parse(raw);
     update();
@@ -202,11 +202,6 @@ const updateDeadline = () => {
 /** 保存 */
 
 const save = async () => {
-  // const url = new URL(`${origin}:3001/updateTasks`);
-  // url.search = new URLSearchParams({
-  //   list: JSON.stringify(list.value),
-  // }).toString();
-  // const res = await fetch(url).then((response) => response.json());
   const res = await fetch(`${origin}:3000/updateTasks`, {
     method: "POST",
     body: JSON.stringify(list.value),
@@ -214,7 +209,7 @@ const save = async () => {
       "Content-Type": "application/json",
     },
   });
-  console.log("保存", res);
+  console.log("保存接口的返回结果", res);
 };
 
 const list = ref<any>([]);
