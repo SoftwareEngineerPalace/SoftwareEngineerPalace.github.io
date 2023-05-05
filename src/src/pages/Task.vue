@@ -80,7 +80,7 @@ onMounted(async () => {
           id: uuidv4(),
         };
       });
-      console.log('onMounted')
+    console.log("onMounted");
     update();
   }
 
@@ -96,7 +96,7 @@ onMounted(async () => {
         .map((v) => toRaw(v));
       // console.log("拖动完后", newList);
       list.value = newList;
-      console.log('Sortable')
+      console.log("Sortable");
       update();
     },
   });
@@ -112,7 +112,7 @@ const addOne = () => {
     id: uuidv4(),
   };
   list.value.push(one);
-  console.log('addOne')
+  console.log("addOne");
   update();
 };
 
@@ -127,7 +127,7 @@ const onConfirmInitTime = () => {
   const h = parseInt(times[0]);
   const m = parseInt(times[1]);
   initTime.value = h * 60 + m;
-  console.log('initTimeRaw')
+  console.log("initTimeRaw");
   update();
 };
 
@@ -152,26 +152,26 @@ const setNowForStart = () => {
   initTimeRaw.value = `${hour > 9 ? hour : "0" + hour}:${
     nextTenMin !== 0 ? nextTenMin * 10 : "00"
   }`;
-  console.log('setNowForStart')
+  console.log("setNowForStart");
   update();
 };
 
 /** 优先级更新了 */
 const priorityChanged = () => {
-  console.log('priorityChanged')
+  console.log("priorityChanged");
   update();
 };
 
 /** 时长更新了 */
 const onDurationChange = () => {
-  console.log('onDurationChange')
+  console.log("onDurationChange");
   update();
 };
 
 /** 被删除了 */
 const onDelete = (index) => {
   list.value = list.value.slice(0, index).concat(list.value.slice(index + 1));
-  console.log('onDelete')
+  console.log("onDelete");
   update();
 };
 
