@@ -200,9 +200,8 @@ const updateDeadline = () => {
 };
 
 /** 保存 */
-
 const save = async () => {
-  const res = await fetch(`${origin}:3000/updateTasks`, {
+  const res = await fetch(`${origin}:3000/saveTasks`, {
     method: "POST",
     body: JSON.stringify(list.value),
     headers: {
