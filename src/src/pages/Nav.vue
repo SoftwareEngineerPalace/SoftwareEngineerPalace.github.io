@@ -1,7 +1,8 @@
 <template>
   <div class="base">
     <router-link to="/gate">大门</router-link>
-    <router-link to="/task">任务</router-link>
+    <router-link to="/work">工作</router-link>
+    <router-link to="/life">生活</router-link>
   </div>
 </template>
 <style lang="less" scoped>

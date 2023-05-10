@@ -62,7 +62,7 @@ const listRef = ref(null);
 let hostname = window.location.hostname;
 
 onMounted(async () => {
-  const raw = await fetch(`http://${hostname}:3000/getTasks`).then((response) =>
+  const raw = await fetch(`http://${hostname}:3000/getWork`).then((response) =>
     response.json()
   );
   console.log("获取到的数据", raw);
@@ -210,7 +210,7 @@ const updateDeadline = () => {
 /** 保存 */
 const save = async () => {
   console.log("准备保存的数据", list.value);
-  const res = await fetch(`${origin}:3000/saveTasks`, {
+  const res = await fetch(`${origin}:3000/saveWork`, {
     method: "POST",
     body: JSON.stringify(list.value),
     headers: {
