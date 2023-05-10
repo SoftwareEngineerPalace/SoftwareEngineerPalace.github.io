@@ -74,7 +74,7 @@ onMounted(async () => {
       .map((v) => {
         return {
           id: uuidv4(),
-          name: "",
+          name: "任务",
           duration: 10,
           deadline: "",
           priority: 1,
@@ -94,7 +94,6 @@ onMounted(async () => {
         .concat(list.value.slice(evt.newIndex))
         .filter((v) => !v.hasOwnProperty("delete"))
         .map((v) => toRaw(v));
-      // console.log("拖动完后", newList);
       list.value = newList;
       console.log("Sortable");
       update();
