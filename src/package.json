@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && yarn wins_delete && yarn wins_copy",
+    "build": "vite build && yarn mac_delete && yarn mac_copy",
     "mac_delete": "yarn mac_delete_assets && yarn mac_delete_index && yarn mac_delete_qrcode",
     "mac_delete_assets": "if [ -d ../assets ] ; then rm -rf ../assets ; fi ",
     "mac_delete_index": "if [ -e ../index.html ] ; then rm ../index.html ; fi ",
