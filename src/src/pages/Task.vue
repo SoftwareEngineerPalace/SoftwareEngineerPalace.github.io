@@ -188,8 +188,8 @@ const formatTime = (totalMinutes) => {
 };
 
 const update = () => {
+  console.log("update")
   list.value = list.value.sort((a, b) => toRaw(b).priority - toRaw(a).priority);
-  // console.log("update", toRaw(list.value));
   nextTick(() => {
     updateDeadline();
     save();
@@ -198,6 +198,7 @@ const update = () => {
 
 /** 更新 deadline */
 const updateDeadline = () => {
+  console.log("updateDeadline")
   let pre = initTime.value;
   list.value = list.value.map((cur: any) => {
     cur.deadline = formatTime(pre + cur.duration);
