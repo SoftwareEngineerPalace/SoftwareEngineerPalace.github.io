@@ -73,11 +73,11 @@ onMounted(async () => {
       .fill(1)
       .map((v) => {
         return {
+          id: uuidv4(),
           name: "",
           duration: 10,
           deadline: "",
           priority: 1,
-          id: uuidv4(),
         };
       });
     console.log("onMounted");
@@ -105,7 +105,7 @@ onMounted(async () => {
 /** 方法 1 */
 const addOne = () => {
   const one = {
-    name: "",
+    name: "任务",
     duration: 10,
     deadline: "",
     priority: 1,
