@@ -208,6 +208,7 @@ const updateDeadline = () => {
 
 /** 保存 */
 const save = async () => {
+  console.log('准备保存的')
   const res = await fetch(`${origin}:3000/saveTasks`, {
     method: "POST",
     body: JSON.stringify(list.value),
