@@ -5,6 +5,15 @@
     <router-link to="/life">生活</router-link>
   </div>
 </template>
+<script setup lang="ts">
+import queryString from "query-string";
+import { useRouter, useRoute } from "vue-router";
+// let router = useRouter();
+// const name = queryString.parse(decodeURIComponent(window.location.search)).name;
+// if (name === "siyu") {
+//   router.replace({ name: "siyu" });
+// }
+</script>
 <style lang="less" scoped>
 .base {
   width: 100vw;

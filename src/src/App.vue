@@ -11,7 +11,7 @@ const name = queryString.parse(decodeURIComponent(window.location.search)).name;
 if (name === "siyu") {
   router.replace({ name: "siyu" });
 }
-</script>
+</script>s
 <style lang="less" scoped>
 * {
   box-sizing: border-box;
