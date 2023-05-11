@@ -8,6 +8,7 @@ import { useRouter, useRoute } from "vue-router";
 let router = useRouter();
 
 const name = queryString.parse(decodeURIComponent(window.location.search)).name;
+console.log('App.vue name', name)
 if (name === "siyu") {
   router.replace({ name: "siyu" });
 }
