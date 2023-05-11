@@ -2,6 +2,7 @@ import Work from "@/pages/Work.vue";
 import Life from "@/pages/Life.vue";
 import Gate from "@/pages/Gate.vue";
 import Nav from "@/pages/Nav.vue";
+import Siyu from '@/pages/Siyu.vue';
 export default [
   {
     path: "/",
@@ -27,5 +28,10 @@ export default [
     path: "/gate",
     name: "gate",
     component: Gate,
+  },
+  {
+    path: "/siyu",
+    name: "siyu",
+    component: Siyu,
   },
 ];

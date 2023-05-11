@@ -4,8 +4,13 @@
 <script lang="ts" setup>
 import { ref, onMounted } from "vue";
 import queryString from "query-string";
-import { useRouter } from "vue-router";
+import { useRouter, useRoute } from "vue-router";
 let router = useRouter();
+
+const name = queryString.parse(decodeURIComponent(window.location.search)).name;
+if (name === "siyu") {
+  router.replace({ name: "siyu" });
+}
 </script>
 <style lang="less" scoped>
 * {
