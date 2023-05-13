@@ -287,7 +287,7 @@ const list = ref<any>([]);
       align-items: center;
       width: 100vw;
       padding-right: 10vw;
-      margin-bottom: 10vh;
+      margin-bottom: 15vh;
 
       .container {
         width: 90vw;
