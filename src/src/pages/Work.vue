@@ -265,7 +265,8 @@ const list = ref<any>([]);
     align-items: center;
 
     .container {
-      width: 100vw;
+      width: 90vw;
+      margin-right: 10vw;
       display: flex;
       justify-content: space-between;
       align-items: center;
