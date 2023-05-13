@@ -13,43 +13,44 @@
       <a-button class="btn-add" @click="addOne">新增</a-button>
       <a-button class="btn-work" @click="toWork">工作</a-button>
     </div>
+    <div class="bottom-container">
+      <div class="wrapper" ref="listRef">
+        <div class="container" v-for="(item, index) in list" :key="item.id">
+          <span class="deadline">{{ `${item.deadline}` }}</span>
+          <a-textarea
+            class="name"
+            :autoSize="{ minRows: 1, maxRows: 6 }"
+            :style="{
+              color: colorMap[item.priority],
+            }"
+            v-model:value="item.name"
+            placeholder="任务"
+          >
+          </a-textarea>
+          <a-radio-group
+            v-model:value="item.priority"
+            @change="priorityChanged"
+            class="priority-group"
+          >
+            <a-radio :value="3">高</a-radio>
+            <a-radio :value="2">中</a-radio>
+            <a-radio :value="1">低</a-radio>
+          </a-radio-group>
+          <a-radio-group
+            v-model:value="item.duration"
+            @change="onDurationChange"
+            class="duration-group"
+          >
+            <a-radio :value="10">10</a-radio>
+            <a-radio :value="20">20</a-radio>
+            <a-radio :value="30">30</a-radio>
+            <a-radio :value="40">40</a-radio>
+            <a-radio :value="60">60</a-radio>
+            <a-radio :value="90">90</a-radio>
+          </a-radio-group>
 
-    <div class="wrapper" ref="listRef">
-      <div class="container" v-for="(item, index) in list" :key="item.id">
-        <span class="deadline">{{ `${item.deadline}` }}</span>
-        <a-textarea
-          class="name"
-          :autoSize="{ minRows: 1, maxRows: 6 }"
-          :style="{
-            color: colorMap[item.priority],
-          }"
-          v-model:value="item.name"
-          placeholder="任务"
-        >
-        </a-textarea>
-        <a-radio-group
-          v-model:value="item.priority"
-          @change="priorityChanged"
-          class="priority-group"
-        >
-          <a-radio :value="3">高</a-radio>
-          <a-radio :value="2">中</a-radio>
-          <a-radio :value="1">低</a-radio>
-        </a-radio-group>
-        <a-radio-group
-          v-model:value="item.duration"
-          @change="onDurationChange"
-          class="duration-group"
-        >
-          <a-radio :value="10">10</a-radio>
-          <a-radio :value="20">20</a-radio>
-          <a-radio :value="30">30</a-radio>
-          <a-radio :value="40">40</a-radio>
-          <a-radio :value="60">60</a-radio>
-          <a-radio :value="90">90</a-radio>
-        </a-radio-group>
-
-        <a-button class="delete" @click="onDelete(index)">删</a-button>
+          <a-button class="delete" @click="onDelete(index)">删</a-button>
+        </div>
       </div>
     </div>
   </div>
@@ -241,6 +242,7 @@ const list = ref<any>([]);
 <style scoped lang="less">
 .base {
   color: white;
+  height: 100vh;
   display: flex;
   justify-content: flex-start;
   flex-direction: column;
@@ -251,6 +253,7 @@ const list = ref<any>([]);
     justify-content: flex-start;
     align-items: center;
     margin: 20px 0 20px 0;
+    flex-grow: 0;
 
     .initime__input {
       width: 30%;
@@ -260,68 +263,77 @@ const list = ref<any>([]);
     .initime__ok {
       width: 20%;
     }
+
+    .btn-now {
+      align-self: flex-end;
+    }
+
+    .btn-add {
+      align-self: center;
+    }
   }
 
-  .btn-now {
-    align-self: flex-end;
-  }
-
-  .btn-add {
-    align-self: center;
-  }
-
-  .wrapper {
+  .bottom-container {
+    width: 100vw;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
+    overflow-y: scroll;
+    flex-grow: 1;
 
-    .container {
-      width: 90vw;
-      margin-right: 10vw;
+    .wrapper {
       display: flex;
-      justify-content: space-between;
+      flex-direction: column;
+      justify-content: flex-start;
       align-items: center;
-      border-bottom: 1px gainsboro dashed;
+      width: 100vw;
+      padding-right: 10vw;
 
-      .priority-group {
+      .container {
+        width: 90vw;
         display: flex;
-        flex-direction: column;
-      }
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px gainsboro dashed;
 
-      .duration-group {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-      }
+        .priority-group {
+          display: flex;
+          flex-direction: column;
+        }
 
-      .deadline {
-        margin-left: 10px;
-        font-size: 20px;
-        white-space: nowrap;
-        color: chocolate;
-      }
+        .duration-group {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+        }
 
-      .name {
-        text-align: center;
-        color: white;
-        margin-right: 10px;
-        margin-left: 10px;
-        font-weight: 500;
-        background: #eeeeee;
-        padding: 0;
-        text-align: center;
-        width: 150px;
-        white-space: wrap;
-      }
+        .deadline {
+          margin-left: 10px;
+          font-size: 20px;
+          white-space: nowrap;
+          color: chocolate;
+        }
 
-      .delete {
-        width: 25px;
-        flex-shrink: 0;
-        font-size: 10px;
-        text-align: center;
-        letter-spacing: 0;
-        margin-right: 5px;
-        padding: 0;
+        .name {
+          text-align: center;
+          color: white;
+          margin-right: 10px;
+          margin-left: 10px;
+          font-weight: 500;
+          background: #eeeeee;
+          padding: 0;
+          text-align: center;
+          width: 150px;
+          white-space: wrap;
+        }
+
+        .delete {
+          width: 25px;
+          flex-shrink: 0;
+          font-size: 10px;
+          text-align: center;
+          letter-spacing: 0;
+          margin-right: 5px;
+          padding: 0;
+        }
       }
     }
   }
