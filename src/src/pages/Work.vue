@@ -14,42 +14,44 @@
       <a-button class="btn-life" @click="toLife">生活</a-button>
     </div>
 
-    <div class="wrapper" ref="listRef">
-      <div class="container" v-for="(item, index) in list" :key="item.id">
-        <span class="deadline">{{ `${item.deadline}` }}</span>
-        <a-textarea
-          class="name"
-          :autoSize="{ minRows: 1, maxRows: 6 }"
-          :style="{
-            color: colorMap[item.priority],
-          }"
-          v-model:value="item.name"
-          placeholder="任务"
-        >
-        </a-textarea>
-        <a-radio-group
-          v-model:value="item.priority"
-          @change="priorityChanged"
-          class="priority-group"
-        >
-          <a-radio :value="3">高</a-radio>
-          <a-radio :value="2">中</a-radio>
-          <a-radio :value="1">低</a-radio>
-        </a-radio-group>
-        <a-radio-group
-          v-model:value="item.duration"
-          @change="onDurationChange"
-          class="duration-group"
-        >
-          <a-radio :value="10">10</a-radio>
-          <a-radio :value="20">20</a-radio>
-          <a-radio :value="30">30</a-radio>
-          <a-radio :value="40">40</a-radio>
-          <a-radio :value="60">60</a-radio>
-          <a-radio :value="90">90</a-radio>
-        </a-radio-group>
+    <div class="bottom-container">
+      <div class="wrapper" ref="listRef">
+        <div class="container" v-for="(item, index) in list" :key="item.id">
+          <span class="deadline">{{ `${item.deadline}` }}</span>
+          <a-textarea
+            class="name"
+            :autoSize="{ minRows: 1, maxRows: 6 }"
+            :style="{
+              color: colorMap[item.priority],
+            }"
+            v-model:value="item.name"
+            placeholder="任务"
+          >
+          </a-textarea>
+          <a-radio-group
+            v-model:value="item.priority"
+            @change="priorityChanged"
+            class="priority-group"
+          >
+            <a-radio :value="3">高</a-radio>
+            <a-radio :value="2">中</a-radio>
+            <a-radio :value="1">低</a-radio>
+          </a-radio-group>
+          <a-radio-group
+            v-model:value="item.duration"
+            @change="onDurationChange"
+            class="duration-group"
+          >
+            <a-radio :value="10">10</a-radio>
+            <a-radio :value="20">20</a-radio>
+            <a-radio :value="30">30</a-radio>
+            <a-radio :value="40">40</a-radio>
+            <a-radio :value="60">60</a-radio>
+            <a-radio :value="90">90</a-radio>
+          </a-radio-group>
 
-        <a-button class="delete" @click="onDelete(index)">删</a-button>
+          <a-button class="delete" @click="onDelete(index)">删</a-button>
+        </div>
       </div>
     </div>
   </div>
