@@ -11,6 +11,7 @@
         >设定当前为起始时间</a-button
       >
       <a-button class="btn-add" @click="addOne">新增</a-button>
+      <a-button class="btn-work" @click="toWork">工作</a-button>
     </div>
 
     <div class="wrapper" ref="listRef">
@@ -51,6 +52,8 @@ import { ref, onMounted, toRaw, nextTick } from "vue";
 import dayjs from "dayjs";
 import Sortable from "sortablejs";
 import { v4 as uuidv4 } from "uuid";
+import { useRouter } from "vue-router";
+let router = useRouter();
 
 const colorMap = {
   3: "#FF6B6B",
@@ -62,7 +65,7 @@ const listRef = ref(null);
 let hostname = window.location.hostname;
 
 onMounted(async () => {
-  const raw = await fetch(`http://${hostname}:3000/getLife`).then((response) =>
+  const raw = await fetch(`http://${hostname}:3000/api/getLife`).then((response) =>
     response.json()
   );
   console.log("获取到的数据", raw);
@@ -210,7 +213,7 @@ const updateDeadline = () => {
 /** 保存 */ 
 const save = async () => {
   console.log("准备保存的数据", list.value);
-  const res = await fetch(`${origin}:3000/saveLife`, {
+  const res = await fetch(`${origin}:3000/api/saveLife`, {
     method: "POST",
     body: JSON.stringify(list.value),
     headers: {
@@ -218,6 +221,11 @@ const save = async () => {
     },
   });
   console.log("保存接口的返回结果", res);
+};
+
+
+const toWork = () => {
+  router.push({ name: "work" });
 };
 
 const list = ref<any>([]);
