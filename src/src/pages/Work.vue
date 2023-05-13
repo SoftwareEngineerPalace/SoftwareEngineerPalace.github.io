@@ -274,6 +274,7 @@ const list = ref<any>([]);
       flex-direction: column;
       justify-content: flex-start;
       align-items: center;
+      margin-bottom: 10vh;
 
       .container {
         width: 100vw;
