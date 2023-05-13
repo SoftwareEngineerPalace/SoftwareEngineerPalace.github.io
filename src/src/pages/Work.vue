@@ -68,7 +68,6 @@ onMounted(async () => {
   const raw = await fetch(`http://${hostname}:3000/api/getWork`).then(
     (response) => response.json()
   );
-  console.log("获取到的数据", raw);
   if (!!raw) {
     list.value = raw;
   } else {
@@ -83,7 +82,6 @@ onMounted(async () => {
           priority: 1,
         };
       });
-    console.log("onMounted");
     update();
   }
 
@@ -98,7 +96,6 @@ onMounted(async () => {
         .filter((v) => !v.hasOwnProperty("delete"))
         .map((v) => toRaw(v));
       list.value = newList;
-      console.log("Sortable");
       update();
     },
   });
@@ -129,7 +126,6 @@ const onConfirmInitTime = () => {
   const h = parseInt(times[0]);
   const m = parseInt(times[1]);
   initTime.value = h * 60 + m;
-  console.log("initTimeRaw");
   update();
 };
 
@@ -154,26 +150,22 @@ const setNowForStart = () => {
   initTimeRaw.value = `${hour > 9 ? hour : "0" + hour}:${
     nextTenMin !== 0 ? nextTenMin * 10 : "00"
   }`;
-  console.log("setNowForStart");
   update();
 };
 
 /** 优先级更新了 */
 const priorityChanged = () => {
-  console.log("priorityChanged");
   update();
 };
 
 /** 时长更新了 */
 const onDurationChange = () => {
-  console.log("onDurationChange");
   update();
 };
 
 /** 被删除了 */
 const onDelete = (index) => {
   list.value = list.value.slice(0, index).concat(list.value.slice(index + 1));
-  console.log("onDelete");
   update();
 };
 
@@ -191,7 +183,6 @@ const formatTime = (totalMinutes) => {
 };
 
 const update = () => {
-  console.log("update");
   list.value = list.value.sort((a, b) => toRaw(b).priority - toRaw(a).priority);
   nextTick(() => {
     updateDeadline();
@@ -201,7 +192,6 @@ const update = () => {
 
 /** 更新 deadline */
 const updateDeadline = () => {
-  console.log("updateDeadline");
   let pre = initTime.value;
   list.value = list.value.map((cur: any) => {
     cur.deadline = formatTime(pre + cur.duration);
@@ -212,7 +202,6 @@ const updateDeadline = () => {
 
 /** 保存 */
 const save = async () => {
-  console.log("准备保存的数据", list.value);
   const res = await fetch(`${origin}:3000/api/saveWork`, {
     method: "POST",
     body: JSON.stringify(list.value),
@@ -220,7 +209,6 @@ const save = async () => {
       "Content-Type": "application/json",
     },
   });
-  console.log("保存接口的返回结果", res);
 };
 
 const toLife = () => {
