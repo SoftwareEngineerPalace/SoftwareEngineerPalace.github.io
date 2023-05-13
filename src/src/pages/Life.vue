@@ -27,12 +27,20 @@
           placeholder="任务"
         >
         </a-textarea>
-        <a-radio-group v-model:value="item.priority" @change="priorityChanged">
+        <a-radio-group
+          v-model:value="item.priority"
+          @change="priorityChanged"
+          class="priority-group"
+        >
           <a-radio :value="3">高</a-radio>
           <a-radio :value="2">中</a-radio>
           <a-radio :value="1">低</a-radio>
         </a-radio-group>
-        <a-radio-group v-model:value="item.duration" @change="onDurationChange">
+        <a-radio-group
+          v-model:value="item.duration"
+          @change="onDurationChange"
+          class="duration-group"
+        >
           <a-radio :value="10">10</a-radio>
           <a-radio :value="20">20</a-radio>
           <a-radio :value="30">30</a-radio>
@@ -65,8 +73,8 @@ const listRef = ref(null);
 let hostname = window.location.hostname;
 
 onMounted(async () => {
-  const raw = await fetch(`http://${hostname}:3000/api/getLife`).then((response) =>
-    response.json()
+  const raw = await fetch(`http://${hostname}:3000/api/getLife`).then(
+    (response) => response.json()
   );
   console.log("获取到的数据", raw);
   if (!!raw) {
@@ -191,7 +199,7 @@ const formatTime = (totalMinutes) => {
 };
 
 const update = () => {
-  console.log("update")
+  console.log("update");
   list.value = list.value.sort((a, b) => toRaw(b).priority - toRaw(a).priority);
   nextTick(() => {
     updateDeadline();
@@ -201,7 +209,7 @@ const update = () => {
 
 /** 更新 deadline */
 const updateDeadline = () => {
-  console.log("updateDeadline")
+  console.log("updateDeadline");
   let pre = initTime.value;
   list.value = list.value.map((cur: any) => {
     cur.deadline = formatTime(pre + cur.duration);
@@ -210,7 +218,7 @@ const updateDeadline = () => {
   });
 };
 
-/** 保存 */ 
+/** 保存 */
 const save = async () => {
   console.log("准备保存的数据", list.value);
   const res = await fetch(`${origin}:3000/api/saveLife`, {
@@ -222,7 +230,6 @@ const save = async () => {
   });
   console.log("保存接口的返回结果", res);
 };
-
 
 const toWork = () => {
   router.push({ name: "work" });
@@ -270,11 +277,22 @@ const list = ref<any>([]);
     align-items: center;
 
     .container {
-      width: 100vw;
+      width: 90vw;
+      margin-right: 10vw;
       display: flex;
       justify-content: space-between;
       align-items: center;
       border-bottom: 1px gainsboro dashed;
+
+      .priority-group {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .duration-group {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+      }
 
       .deadline {
         margin-left: 10px;

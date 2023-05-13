@@ -27,12 +27,20 @@
           placeholder="任务"
         >
         </a-textarea>
-        <a-radio-group v-model:value="item.priority" @change="priorityChanged">
+        <a-radio-group
+          v-model:value="item.priority"
+          @change="priorityChanged"
+          class="priority-group"
+        >
           <a-radio :value="3">高</a-radio>
           <a-radio :value="2">中</a-radio>
           <a-radio :value="1">低</a-radio>
         </a-radio-group>
-        <a-radio-group v-model:value="item.duration" @change="onDurationChange">
+        <a-radio-group
+          v-model:value="item.duration"
+          @change="onDurationChange"
+          class="duration-group"
+        >
           <a-radio :value="10">10</a-radio>
           <a-radio :value="20">20</a-radio>
           <a-radio :value="30">30</a-radio>
@@ -281,6 +289,16 @@ const list = ref<any>([]);
         text-align: center;
         width: 150px;
         white-space: wrap;
+      }
+
+      .priority-group {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .duration-group {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
       }
 
       .delete {
